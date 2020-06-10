@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+<title>用户登录</title><base target="_blank" />
+<style>.hvtholder {
+        margin: 0px auto;
+        width: 789px;
+        text-align: center;
+    }
+    a {
+        color: blue;
+    }</style>
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/login.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="hvtholder">
+    <h2>书城登录</h2>
+   
+    
+<div class="signin">
+	<div class="signin-head"><img src="./img/head_120.png" alt="" class="img-circle"></div>
+	<form class="form-signin" role="form">
+		<input id="username"  type="text" class="form-control" placeholder="用户名" required autofocus />
+		<input  id="password" type="password" class="form-control" placeholder="密码" required />
+		
+		
+	</form>
+	<button  id="btnlogin" class="btn btn-lg btn-warning btn-block" type="submit">登录</button>
+	<button id="btnRegister" class="btn btn-lg btn-warning btn-block" type="submit">注册</button>
+</div>
+<script src="js/jquery-3.4.1.min.js"></script>
+		<script>
+			$('#btnRegister').on("click", function() {
+				window.location.href="./register.html"
+			})
+		</script>
+		
+		<script>
+			var button = document.getElementById("btnlogin");
+			button.onclick = function() {
+				var user = document.getElementById("username").value;
+				var pass = document.getElementById("password").value;
+				
+				 if (user==null||user==""||user==undefined) {
+					
+				 	alert("账户不允许为空");
+					
+					return false;
+			 } 
+				
+				console.log("请求中");
+				mui.ajax({
+					 url:"http://192.168.137.1:8080/AiBdServer/loginjudge.action",
+					type: "post",
+					data: {
+						"username": user,
+						"password": pass
+					},
+					dataType: 'jsonp', //服务器返回json格式数据
+				
+					
+
+					success: function(result) {
+						
+						var lastresult = $.parseJSON(result);
+						
+						if(lastresult.judgeresult=="登陆成功"){
+							window.location.href="./mainpage.html"
+						}
+						else{
+							alert('账号或密码错误');
+							return;
+							
+						}
+					},
+					error: function(e) {
+						alert("请求失败");
+
+					}
+
+				})
+			};
+		</script>
+   
+</body>
+</html>

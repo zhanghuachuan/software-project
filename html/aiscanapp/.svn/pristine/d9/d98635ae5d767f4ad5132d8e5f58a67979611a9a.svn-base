@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<style>
+			{*margin: 0;padding:0;}
+			html{
+				height: 100%;
+				width: 100%;
+			}
+			body{
+				height: 100%;
+				width: 100%;
+			}
+			.dClass{
+				height: 50%;
+				width: 100%;
+				 /*方法二：弹性盒子，爸爸让儿子去哪就去哪*/
+				 display: flex;
+				 justify-content: center;
+				 align-items: center;
+			}
+			.imgclass{
+				height: 100%;
+				width: 100%;
+
+			}
+			.bodyclass{
+				background-color: beige;
+			}	
+			</style>
+	</head>
+<body id="bodyid" onload="showInfo()" class="bodyclass">
+			<script src="js/mui.js"></script>
+			<script type="text/javascript">
+				mui.init()
+			</script>
+			<script src="js/jquery-3.4.1.min.js"></script>
+			<div>
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">识别结果</h1>
+			</header>
+			</div>
+			<div id="div3"  style="height:45px;">
+				
+			</div>
+			<div id="div1" class="dClass" >
+	
+			</div>
+			<div id="div2" >
+	
+			</div>
+	<script>
+		function getParameter(param) {
+			var query = decodeURI(window.location.search);
+				
+			var iLen = param.length;
+			var iStart = query.indexOf(param);
+			if (iStart == -1)
+				return "";
+			iStart += iLen + 1;
+			var iEnd = query.indexOf("&", iStart);
+			if (iEnd == -1)
+				return query.substring(iStart);
+				
+			return query.substring(iStart, iEnd);
+		}
+				
+		function showInfo() {
+				
+			var description = getParameter("description");
+			var imgpath = getParameter("imgpath");
+			var div = document.getElementById("div2");
+			var li1 = document.createElement("p");
+			div.appendChild(li1);
+			li1.setAttribute("id", "li1");
+			li1.innerHTML = description;
+			document.getElementById("div1").innerHTML = '<img src="' + imgpath + '" class="imgclass"/>';
+				voice.execPlayer(description);  
+		}
+		var voice = {
+			author:'chendan',
+			version:'v1.0',
+			api:'http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=4&text=',
+			player:null,
+			createPlayer:function(){
+				//document
+				voice.player = document.createElement("audio");//<audio></audio>
+				
+			},
+			execPlayer:function(content){
+				if(voice.player==null){
+					voice.createPlayer();
+				}
+				voice.player.src = voice.api+content;
+				voice.player.play();
+			}
+		}
+		
+	</script>
+		</body>
+
+</html>

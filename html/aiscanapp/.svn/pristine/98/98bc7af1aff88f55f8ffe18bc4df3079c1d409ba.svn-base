@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+	</head>
+	
+		<body id="bodyid" onload="showInfo()">
+			<script src="js/mui.js"></script>
+			<script type="text/javascript">
+				mui.init()
+			</script>
+				<script src="js/jquery-3.4.1.min.js"></script>
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">标题</h1>
+			</header>
+			<div id="div1">
+	
+			</div>
+			<div id="div2">
+	
+			</div>
+	
+	
+	
+	<script>
+		function getParameter(param) {
+			var query = decodeURI(window.location.search);
+				
+			var iLen = param.length;
+			var iStart = query.indexOf(param);
+			if (iStart == -1)
+				return "";
+			iStart += iLen + 1;
+			var iEnd = query.indexOf("&", iStart);
+			if (iEnd == -1)
+				return query.substring(iStart);
+				
+			return query.substring(iStart, iEnd);
+		}
+				
+		function showInfo() {
+				
+			var description = getParameter("description");
+			var imgpath = getParameter("imgpath");
+			var div = document.getElementById("div2");
+			var li1 = document.createElement("p");
+			div.appendChild(li1);
+			li1.setAttribute("id", "li1");
+			li1.innerHTML = description;
+			document.getElementById("div1").innerHTML = '<img src="' + imgpath + '"/>';
+				
+		}
+	</script>
+		</body>
+
+</html>

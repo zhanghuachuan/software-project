@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>网上书城</title>
+	
+  </head>
+  <style type="text/css">
+  	#class{
+		width: 100%;
+		height: 60px;
+		background-color:#B6B684;
+		text-align: center;
+		position: relative;
+	}
+	#class>a{
+		margin-left: 30px;
+		cursor: pointer;
+		font-size: 30px;
+		color: #F9F9F9;
+		line-height: 180%;
+		
+	}
+	#class>a:hover{
+		color: #EEEEEE;
+	}
+	#class>#search{
+		float: right;
+		margin-right: 20px;
+		margin-top: 1%;
+	}
+	tr{
+		margin-top: 100px;
+		border-bottom: 1px solid #080808;
+		height: 78px;
+	}
+	td{
+		text-align: left;
+		font-size: 20px;
+	}
+  </style>
+  <script src="js/mui.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+  	mui.init();
+  </script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <body>
+    	<!-- 最上面的部分 购物车部分-->
+    	
+    	
+    	<!-- 第二部分 目录部分 -->
+    	
+			<div id="class">
+				<a>文字</a>
+				<a>生活</a>
+				<a>计算机 </a>        
+				<a>经营</a>
+				<a>励志</a>
+				<a>社科 </a>
+				<a>少儿</a>
+					<div id="search">
+					Search<input type="text"/><button type="button">搜索</button>	
+					</div>
+					
+			</div>	
+				
+    			
+    	
+    
+    	<!-- 第三部分 -->
+    	
+    	
+    	<!-- 第四部分 导引行 -->
+    	
+    	
+    	<!-- 第五部分 商品目录 -->
+    	<div id="goods">
+    		<h1>商品目录</h1>
+			
+    	</div>
+    	<hr/>
+    	
+    	<!-- 第六部分 计算机类 -->
+    	<h1>文学类</h1>
+    	<br/>
+    	
+    	<!-- 第七部分 共xxx种商品 -->
+    	<span>共xxx种商品</span>
+    	<hr>
+    	
+    	<!-- 第八部分 图片 -->
+    
+    	
+    	<!-- 第九部分 图书 -->
+    	<table width="100%" align="center" id="info">
+    		
+    		
+    	</table>
+    	
+    	<!-- 第十部分 最后 -->
+    	<table width="100%" bgcolor="#EFEEDC">
+    		
+    		
+    	</table>
+		<script>
+			
+			mui.ajax({
+				url:"http://192.168.137.1:8080/AiBdServer/querybook.action",
+				data: {
+					class:"literature"
+					
+				},
+				dataType: 'jsonp', //数据格式类型
+				type: 'POST', //http请求类型
+				timeout: 10000, //超时设置
+				success: function(result) {
+					var resultjson =$.parseJSON(result);
+					for(var key in resultjson){
+						
+						$("#info").append("<tr><td >书名："+key+"<br/>作者："+$.parseJSON(resultjson[key]).author+"</td><br/>售价：￥"+$.parseJSON(resultjson[key]).price+"元</td></tr>");
+						
+						
+						console.log($.parseJSON(resultjson[key]).price);
+					}
+					
+				},
+				error: function() {
+				alert('请求服务器失败');	
+						
+				}
+			})
+		</script>
+	
+  </body>
+</html>

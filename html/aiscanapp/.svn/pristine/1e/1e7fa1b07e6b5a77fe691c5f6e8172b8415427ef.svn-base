@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<style type="text/css">
+			
+			.cont{width: 100%;
+			height: 100px;
+			/* background-color: black; */
+			display: inline-block;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin:0 auto;
+			margin-top: 60px;
+			}
+			#mb{
+				margin-top: 0px;
+			}
+			.trans,.img{
+				width: 40%;
+				height: 120px;
+				margin: 0 auto;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				
+				
+				
+			}
+			/* .trans{
+				background-color: #2AC845;
+			} */
+			.img{
+				/* background-color: #555555; */
+				border: 1px solid #C0C0C0;
+			}
+			button{
+				margin: auto;
+				width: 100%;
+				height: 50%;
+				
+				display: block;
+				
+				font-style: normal;
+				line-height: 310%;
+				text-align: center;
+				text-decoration: none;
+				color: black;
+				border: 1px solid black;
+				border-radius: 10px;
+				
+				
+				
+			}
+			
+			
+			img{
+				width: 100%;
+				height: 100%;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-backdrop-action mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">智慧识屏v1.0</h1>
+		</header>
+			<div id="mb" class="mui-content">
+				<div class="cont">
+					<div class="img">
+						<img src="img/food.jpg" >
+						<div class="descrip">
+							<!--用于描述功能-->
+						</div>
+					</div>
+					<div class="trans">
+						<button type="button" class="mui-badge-warning">食物识别</button>
+					</div>
+					
+				</div>
+				<div class="cont">
+					<div class="img">
+						<img src="img/tomato.jpg" >
+						<div class="descrip">
+							<!--用于描述功能-->
+						</div>
+					</div>
+					<div class="trans">
+						<button type="button" class="mui-badge-warning">蔬菜识别</button>
+					</div>
+					
+				</div>
+				<div class="cont">
+					<div class="img">
+						<img src="img/plant.jpg" >
+						<div class="descrip">
+							<!--用于描述功能-->
+						</div>
+					</div>
+					<div class="trans">
+						<button type="button" class="mui-badge-warning">植物识别</button>
+					</div>
+					
+				</div>
+				<div class="cont">
+					<div class="img">
+						<img src="img/dog.jpg" >
+						<div class="descrip">
+							<!--用于描述功能-->
+						</div>
+					</div>
+					<div class="trans">
+						<button type="button" class="mui-badge-warning">动物识别</button>
+					</div>
+					
+				</div>
+				
+			</div>
+		
+		
+		
+		<script>
+			//实现点击跳转
+			$("button").on("click",function(){
+				mui.openWindow({
+					url:'./day4-1.html'
+				});
+			});
+			$("#back").on("click",function(){
+				mui.openWindow({
+					url:'./login.html'
+				});
+			});
+		</script>
+	</body>
+
+</html>

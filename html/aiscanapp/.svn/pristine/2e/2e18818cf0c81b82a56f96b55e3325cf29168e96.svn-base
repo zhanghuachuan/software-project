@@ -1,0 +1,71 @@
+/*控制轮播样式*/
+.orbit-container {
+	position: relative;	/*控制轮播中控件放置的位置*/
+	outline: none;
+}
+
+/*轮播中的左右箭头样式控制*/
+.orbit-previous,
+.orbit-next {
+	position: absolute;	/*控制轮播中左右箭头放置的位置*/
+	top: 50%; /*控制轮播中左右箭头放置在中间*/
+	-webkit-transform: translateY(-50%);
+	z-index: 10;
+	padding: 1em; /*左右箭头距离界面左右边界的距离*/
+	color: #fefefe; /*设置箭头颜色*/
+}
+
+.orbit-previous {
+	left: 0;
+}
+
+.orbit-next {
+	left: auto;
+	right: 0;
+}
+
+/*控制轮播的滑动*/
+.slide-in-right.mui-enter {
+	-webkit-transition-duration: 500ms;
+	transition-duration: 500ms;
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
+	-webkit-transform: translateX(100%);
+	-ms-transform: translateX(100%);
+	transform: translateX(100%);
+	-webkit-transition-property: opacity, -webkit-transform;
+	transition-property: opacity, -webkit-transform;
+	transition-property: transform, opacity;
+	transition-property: transform, opacity, -webkit-transform;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.slide-in-right.mui-enter.mui-enter-active {
+	-webkit-transform: translateX(0);
+	-ms-transform: translateX(0);
+	transform: translateX(0);
+}
+
+.slide-out-left.mui-leave {
+	-webkit-transition-duration: 500ms;
+	transition-duration: 500ms;
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
+	-webkit-transform: translateX(0);
+	-ms-transform: translateX(0);
+	transform: translateX(0);
+	-webkit-transition-property: opacity, -webkit-transform;
+	transition-property: opacity, -webkit-transform;
+	transition-property: transform, opacity;
+	transition-property: transform, opacity, -webkit-transform;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+/*控制轮播图片连续滚动*/
+.slide-out-left.mui-leave.mui-leave-active {
+	-webkit-transform: translateX(-100%);
+	-ms-transform: translateX(-100%);
+	transform: translateX(-100%);
+}

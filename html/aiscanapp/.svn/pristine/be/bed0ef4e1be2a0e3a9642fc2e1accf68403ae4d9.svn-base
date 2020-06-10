@@ -1,0 +1,25 @@
+//语音合成 var:公共全局可读写 let：公共局部可读写 const:公共局部可读不可写
+//js的类型由赋值决定
+/*
+var name="zhangsan";
+name=true;
+*/
+var voice = {
+	author:'chendan',
+	version:'v1.0',
+	api:'http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=2&text=',
+	player:null,
+	createPlayer:function(){
+		//document
+		voice.player = document.createElement("audio");//<audio></audio>
+		
+	},
+	execPlayer:function(content){
+		if(voice.player==null){
+			voice.createPlayer();
+		}
+		voice.player.src = voice.api+content;
+		voice.player.play();
+	}
+}
+

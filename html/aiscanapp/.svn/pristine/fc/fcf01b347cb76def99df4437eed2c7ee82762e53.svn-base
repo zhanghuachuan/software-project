@@ -1,0 +1,220 @@
+//用于实现与后台交互的前端控制器
+//定义一个全局变量,用于存放图片对象,提供給手机操作用
+var fileArr = [];
+
+function getcameraImage() {
+	//调用系统相机拍照
+	var camera = plus.camera.getCamera();
+
+	camera.captureImage(function(e) {
+		//拍照成功
+		//获取拍照后的相片路径
+		plus.io.resolveLocalFileSystemURL(e, function(entry) {
+			var imagesrc = entry.toLocalURL() + "?version=" + new Date().getTime();
+			$("img")[0].src = imagesrc;
+			//可以调用上传方法
+			setFile(imagesrc);
+
+		});
+	}, function(e) {
+		//拍照失败
+		mui.toast("取消拍照");
+		console.log("error:" + e.message);
+	}, {
+		filename: "_doc/camera/"
+
+	});
+}
+
+function getGalleryImage() {
+	//调用系统相册
+	// var gallery = plus.gallery;
+	plus.gallery.pick(function(e) {
+		//选择成功
+	
+		
+			//取到文件后的处理
+			$("img")[0].src = e;
+		     setFile(e);
+			 
+	}, function(e) {
+		//选择失败
+		console.log("取消选择图片");
+
+	}, {
+		filter: "image",
+		multiple: false
+	})
+
+}
+
+function setFile(filesrc) {
+	var image = new Image(); //实例化一个图片对象
+	image.src = filesrc; //将路径赋值给图片对象
+	fileArr.push(image);
+   
+	//开始上传操作
+	var wt = plus.nativeUI.showWaiting();
+	var task = plus.uploader.createUpload('http://192.168.43.39:8080/AiBdServer/singleupload.action', {
+		method: 'POST'
+	}, function(t, status) {
+		//上传成功后的回调函数
+		if(status==200){
+			mui.toast("上传成功");
+			var json = $.parseJSON(t.responseText);
+			$("img")[0].src = json.relpath;
+			setInfo(json.ai);
+			mui.alert("上传成功");
+		}else{
+			return mui.toast("无法识别");
+		}
+		
+		wt.close();
+     
+	});
+	/* for (var i=0;i<fileArr.length;i++){
+		var f = fileArr[i];
+		task.addFile(f.src,{
+			key:'imageFile'
+		}); */
+	//单文件
+	task.addFile(image.src, {
+		key: 'imageFile'
+	});
+
+
+	//添加其他数据
+	// task.addData("commit","test");
+	task.start();
+}
+$("#btn_upload").click(function() {
+	//判断是否支持打开相机调用
+	if (mui.os.plus) {
+		//该设备支持相机调用,可以拉起相机拍照
+		mui.toast("请选择");
+		//定义两个按钮分别用于拉相机和相册功能
+		var buttonTit = [{
+			title: '拍照'
+		}, {
+			title: '相册选择'
+		}];
+		plus.nativeUI.actionSheet({
+			//创建按钮界面
+			title: '图片来源',
+			cancel: '取消',
+			buttons: buttonTit
+
+		}, function(b) {
+			//按钮点击事件
+			// mui.alert("提示","系统提示",null,null,"div");
+			// console.log(b.index);
+			switch (b.index) { //通过按钮的下标值判断用户点击了哪个按钮
+				case 0:
+
+					break;
+				case 1:
+					//拍照
+					getcameraImage();
+					break;
+				case 2:
+					//调用相册
+					getGalleryImage();
+					break;
+				default:
+					break;
+
+			}
+		})
+	} else {
+		//不支持拉起相机,选择图片方式完成
+		//mui.toast("不支持");
+		$("#imageFile").trigger("click");
+		$("#imageFile").unbind().change(function() {
+			if ($("#imageFile")[0].files[0]) {
+				//已经选择了图片
+				$("img")[0].src = URL.createObjectURL($("#imageFile")[0].files[0]);
+				$("#filetitle").html($("#imageFile")[0].files[0].name);
+
+				var form = new FormData(); //<form></form>
+				form.append("imageFile", $("#imageFile")[0].files[0]);
+				upload();
+
+			} else {
+				//没有选择图片
+			}
+		});
+	}
+
+
+
+
+});
+
+function upload() {
+	//业务处理，主要将图片提交到后台
+	var form = new FormData(); //<form></form>
+	form.append("imageFile", $("#imageFile")[0].files[0]);
+	//第一个参数是提交到后台的别名，与后台定义别名一致
+	//第二个参数设置需要提交的参数
+	$.ajax({
+		url: 'http://localhost:8080/AiBdServer/singleupload.action',
+		data: form,
+		type: 'post',
+		dataType: 'json',
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function(result) {
+
+			if (result.smg == "error") {
+				$("#resultbox").html("<h1>" + result.relpath+ "<h1>");
+				mui.toast("上传失败");
+			} else {
+				mui.toast("上传成功");
+				$("#resultbox").html("" + result.relpath + "");
+				mui.alert("上传成功");
+				 setInfo(result.ai);
+			}
+				
+
+		},
+		error: function(e) {
+			mui.toast("上传失败");
+
+		}
+	});
+
+
+}
+var voice = {
+	author:'chendan',
+	version:'v1.0',
+	api:'http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=4&text=',
+	player:null,
+	createPlayer:function(){
+		//document
+		voice.player = document.createElement("audio");//<audio></audio>
+		
+	},
+	execPlayer:function(content){
+		if(voice.player==null){
+			voice.createPlayer();
+		}
+		voice.player.src = voice.api+content;
+		voice.player.play();
+	}
+}
+
+function setInfo(rs){
+	var description=rs[0].baike_info.description;
+	var imgpath=rs[0].baike_info.image_url;
+	var url=null;
+	if(imgpath==null)
+	imgpath="img/background.jpg";
+	if(description!=null)
+	url=encodeURI("showinfo.html"+"?description="+description+"&&imgpath="+imgpath);
+	else
+	url=encodeURI("showinfo.html"+"?description="+rs[0].name+"&&imgpath="+imgpath);
+	window.location.href=url; 
+
+}

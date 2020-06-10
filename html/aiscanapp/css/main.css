@@ -1,0 +1,149 @@
+* {
+	box-sizing: inherit;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Microsoft Yahei, \5FAE\8F6F\96C5\9ED1, \5B8B\4F53, Arial, Verdana, sans-serif;
+	font-size: 14px;
+	margin: 0;
+}
+a{
+	text-decoration: none;
+	color: #626262;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+/*控制商品展示图片的大小*/
+img {
+	max-width: 100%;
+}
+/*控制轮播中的切换按钮的格式   同时控制搜索按钮*/
+button {
+	border: 0;
+	background: transparent;
+	outline: none;
+}
+
+/*搜索框*/
+.searchNav {
+    width: 100%;
+    height: 3em;
+    padding: 6px 1rem;
+    z-index: 1;
+    position: fixed;
+    background-color: #FFB515;
+}
+.search {
+    height: 100%;
+}
+
+.frc {
+    height: 100%;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    display:flex;
+}
+.frc input {
+	outline: none;
+    flex:1;  /*??*/
+	border: #FFFFFF 0px solid !important;
+	font: "微软雅黑";
+	color: #8D8D8D;
+}
+
+.searchIcon {
+    height: 16px;
+    margin:auto 5px;
+}
+.deleteImg{
+    height:15px;
+    margin:auto 5px auto 0;
+}
+.searchBtn{  
+    color: #FFB515; 
+    border-left:1px solid #FFB515;
+}
+
+/*搜索框下面加40px的间隙*/
+.gap40{
+	padding-top: 40px;
+}
+
+/*页脚上方加180px的间隙*/
+.gap180{
+	padding-bottom: 180px;
+}
+
+.gap120{
+	height: 120px;
+}
+
+/*商品分*/
+.row{
+	padding-top: 10px;
+}
+
+.column
+ {
+	float: left;
+	padding-left: 0.625rem;
+	width: 25%;
+}
+
+.icon {
+  	width: 60px;
+  	height: 60px;
+  	border-radius: 50%;
+  	background: #eeeeee;
+  	text-align: center;
+  }
+  
+  .column img {
+  	width: 60%;
+  	height: 60%;
+  	margin: 12px auto;	/*圆框中图片距离圆框边界的距离*/
+  }
+  
+  /*商品类别标签样式*/
+  .split{
+	text-align: center;
+	height: 40px;
+	padding-top: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-image: url(../img/background.png);
+  }
+/*热门推荐  个性推荐*/
+.goods-list li {
+	text-align: center;
+	float: left;
+	width: 25%;
+}
+
+/*页脚标签切换*/
+.footer {
+    position: fixed;   
+    width: 100%;
+    bottom: 0px;
+    background:#F7F7F7;    
+}
+.footer ul li {
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+.footerImg{
+    width:20px;
+    height:20px;
+}
+.colorlv{
+	color: #FFB90F;
+}
+.footer ul li a:hover,
+.footer ul li a:focus {
+    color: #FFB90F;
+}

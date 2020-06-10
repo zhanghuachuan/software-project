@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<style>
+			button{
+				height: 80px;
+				width: 80px;
+				border-radius: 40px !important;
+				position: absolute !important;
+				bottom: 10px;
+				left: 50%;
+				margin-left: -40px;
+			};
+			{*margin: 0;padding:0;}
+			html{
+				height: 100%;
+				width: 100%;
+			}
+			body{
+				height: 100%;
+				width: 100%;
+			}
+			.dClass{
+				height: 50%;
+				width: 100%;
+				position: absolute
+				top: 50%;
+				left: 50%;
+				 background-color: #000000;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">图片上传</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-grid-view">
+				<li class="mui-table-view-cell mui-media mui-col-xs-12">
+					<a href="#">
+						<img class="mui-media-object" src="http://placehold.it/400x300">
+						<div class="mui-media-body" id="filetitle">文件名</div>
+					</a>
+				</li>
+			</ul>
+
+</div>
+
+	<button type="button" id="btn_upload" class="mui-btn mui-btn-green">拍照</button>
+	<input type="file" id="imageFile" class="mui-hidden"  accept=" image/jpeg, image/x-png"/>
+</div>
+<ul class="mui-table-view" id="showrs">
+		
+	</ul>
+<script src="js/FileUpload_Action.js"></script>
+	</body>
+
+</html>

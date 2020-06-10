@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+<title>用户注册</title><base target="_blank" />
+<style>.hvtholder {
+        margin: 0px auto;
+        width: 789px;
+        text-align: center;
+    }
+    a {
+        color: blue;
+    }</style>
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/login.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="hvtholder">
+    <h2>书城登录</h2>
+   
+    
+<div class="signin">
+	<div class="signin-head"><img src="./img/head_120.png" alt="" class="img-circle"></div>
+	<form class="form-signin" role="form">
+		<input id="username"  type="text" class="form-control" placeholder="用户名" required autofocus />
+		<input  id="password" type="password" class="form-control" placeholder="输入密码" required />
+		<input  id="pass" type="password" class="form-control" placeholder="确认密码" required />
+		
+		
+	</form>
+	<button id="reg" class="btn btn-lg btn-warning btn-block" type="submit">注册</button>
+</div>
+<script src="js/jquery-3.4.1.min.js"></script>
+		
+		
+		<script>
+			var reg = document.getElementById("reg");
+					reg.onclick = function(){
+						var username = document.getElementById("username");
+						var password = document.getElementById("password");
+						var pass = document.getElementById("pass");
+						if (username.value.length == 0) {
+							alert("用户名不能为空");
+							return;
+						}
+						if (password.value.length == 0) {
+							alert("密码不能为空");
+							return;
+						}
+						if(password.value!=pass.value){
+							alert("两次密码不一致");
+							return;
+						}
+						mui.ajax({
+							url:"http://192.168.137.1:8080/AiBdServer/loginregister.action",
+							data: {
+								username: username.value,
+								password: password.value
+								
+							},
+							dataType: 'jsonp', //数据格式类型
+							type: 'POST', //http请求类型
+							timeout: 10000, //超时设置
+							success: function(result) {
+								var resultjson =$.parseJSON(result);
+								// var lastresult = $.parseJSON(result);
+								if(resultjson.judgeresult=="注册成功"){
+									alert('注册成功');
+									window.location.href="./login.html"
+								}
+								else{
+									alert('用户名已存在，请重试');
+									
+								}
+							},
+							error: function() {
+							alert('请求服务器失败');	
+			
+							}
+						})
+					}
+			
+				
+			</script>
+			
+			
+   
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				
+				
+		
