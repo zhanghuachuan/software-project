@@ -1,0 +1,96 @@
+<html>
+<head>
+    <title>用户信息</title>
+	<script src="js/jquery-3.4.1.min.js">
+		
+	</script>
+    <script src="js/mui.min.js"></script>
+    		<link href="css/mui.min.css" rel="stylesheet" />
+    		<script type="text/javascript" charset="utf-8">
+    			mui.init();
+    		</script>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+	</script>
+    <style>
+		
+        form{
+            height: 200px;
+        }
+		#btn{
+			margin-top: 174px;
+			margin-left: 235px;
+		}
+    </style>
+</head>
+<body>
+
+
+    <span>图书信息登入</span><hr/>
+    <label>书名: 
+		<input type="text" name="bookname"></label><br>
+	<label>作者:
+	    <input type="text" name="author"></label><br>
+	<label>价格:
+		    <input type="text" name="price"></label><br>
+    <label> 状态:
+		<br><input type="radio" name="status" value="已售">已售<input type="radio" name="status" value="未售">未售</label><br>
+   
+   
+    <label>类别:<br>
+	<input type="radio" name="classify" value="literature">文学类
+	<input type="radio" name="classify" value="life">生活类
+	<input type="radio" name="classify" value="computer">计算机类
+	<input type="radio" name="classify" value="running">经营类
+	<input type="radio" name="classify" value="inspire">励志类
+	<input type="radio" name="classify" value="social">社科类
+	<input type="radio" name="classify" value="child">少儿类
+	</label><br>
+
+<input type="submit" id="btn" value="提交">
+<script>
+$("#btn").bind("click",function(){
+	var bookname =  $("input[name='bookname']").val();
+	var author = $("input[name='author']").val();
+	var price = $("input[name='price']").val();
+	var status = $("input[name='status']:checked").val();
+	var classify = $("input[name='classify']:checked").val();
+	
+	
+	mui.ajax({
+		url:"http://192.168.174.1/AiBdServer/addbook.action",
+		data: {
+			bookname:bookname,
+			author:author,
+			price:price,
+			status:status,
+			classify:classify
+			
+		},
+		contentType:"application/x-www-form-urlencoded",
+		dataType: 'jsonp', //数据格式类型
+		type: 'POST', //http请求类型
+		timeout: 10000, //超时设置
+		success: function(result) {
+			
+			var lastresult = $.parseJSON(result);
+			
+			if(lastresult.judgeresult=="注册成功"){
+				alert("录入成功");
+			}
+			else{
+				alert('录入失败');
+				return;
+				
+			}
+		},
+		error: function() {
+		alert('请求服务器失败');	
+				
+		}
+	})
+})
+</script>
+</body>
+</html>

@@ -30,12 +30,13 @@
 	}
 	tr{
 		margin-top: 100px;
-		border-bottom: 1px solid #080808;
-		height: 78px;
+		
+		height: 130px;
 	}
 	td{
 		text-align: left;
 		font-size: 20px;
+		border-bottom: 1px #000000;
 	}
   </style>
   <script src="js/mui.min.js"></script>
@@ -50,13 +51,13 @@
     	<!-- 第二部分 目录部分 -->
     	
 			<div id="class">
-				<a>文字</a>
-				<a>生活</a>
-				<a>计算机 </a>        
-				<a>经营</a>
-				<a>励志</a>
-				<a>社科 </a>
-				<a>少儿</a>
+				<a id="literature">文字</a>
+				<a id="life">生活</a>
+				<a id="computer">计算机 </a>        
+				<a id="running">经营</a>
+				<a id="inspire">励志</a>
+				<a id="social">社科 </a>
+				<a id="child">少儿</a>
 					<div id="search">
 					Search<input type="text"/><button type="button">搜索</button>	
 					</div>
@@ -80,11 +81,12 @@
     	<hr/>
     	
     	<!-- 第六部分 计算机类 -->
-    	<h1>文学类</h1>
+    	<h1 id="leibie" style="color: #2AC845;">文学类</h1>
     	<br/>
     	
     	<!-- 第七部分 共xxx种商品 -->
-    	<span>共xxx种商品</span>
+    	<h2>共<span id="count"></span>种商品</h2>
+		<button type="button" id="add">增加书籍</button>
     	<hr>
     	
     	<!-- 第八部分 图片 -->
@@ -104,7 +106,7 @@
 		<script>
 			
 			mui.ajax({
-				url:"http://192.168.137.1:8080/AiBdServer/querybook.action",
+				url:"http://192.168.174.1/AiBdServer/querybook.action",
 				data: {
 					class:"literature"
 					
@@ -114,14 +116,18 @@
 				timeout: 10000, //超时设置
 				success: function(result) {
 					var resultjson =$.parseJSON(result);
+					
+					 var count=0;
 					for(var key in resultjson){
 						
-						$("#info").append("<tr><td >书名："+key+"<br/>作者："+$.parseJSON(resultjson[key]).author+"</td><br/>售价：￥"+$.parseJSON(resultjson[key]).price+"元</td></tr>");
 						
+						$("#info").append("<tr><td>书名："+key+"<br/>作者："+$.parseJSON(resultjson[key]).author+"<br/>售价：￥"+$.parseJSON(resultjson[key]).price+"元</td></tr>");
 						
-						console.log($.parseJSON(resultjson[key]).price);
+						count++;
+						
 					}
-					
+					 $("#count").empty();
+					 $("#count").append(count);
 				},
 				error: function() {
 				alert('请求服务器失败');	
@@ -129,6 +135,82 @@
 				}
 			})
 		</script>
-	
+		<script>
+			function getdata(classic){
+				$("#info").empty();
+				mui.ajax({
+					url:"http://192.168.174.1/AiBdServer/querybook.action",
+					data: {
+						class:classic
+						
+					},
+					dataType: 'jsonp', //数据格式类型
+					type: 'POST', //http请求类型
+					timeout: 10000, //超时设置
+					success: function(result) {
+						var resultjson =$.parseJSON(result);
+						
+						 var count=0;
+						for(var key in resultjson){
+							
+							
+							$("#info").append("<tr><td>书名："+key+"<br/>作者："+$.parseJSON(resultjson[key]).author+"<br/>售价：￥"+$.parseJSON(resultjson[key]).price+"元</td></tr>");
+							
+							count++;
+							
+						}
+						 $("#count").empty();
+						 $("#count").append(count);
+					},
+					error: function() {
+					alert('请求服务器失败');	
+							
+					}
+				})
+			}
+			
+			
+			$("#literature").bind("click",function(){
+				$("#leibie").empty();
+				$("#leibie").append("文学类");
+				
+				getdata("literature")});
+				
+				$("#life").bind("click",function(){
+					$("#leibie").empty();
+					$("#leibie").append("生活类");
+					getdata("life")});
+					
+					
+					$("#computer").bind("click",function(){
+						$("#leibie").empty();
+						$("#leibie").append("计算机类");
+						getdata("computer")});
+						
+						$("#running").bind("click",function(){
+							$("#leibie").empty();
+							$("#leibie").append("经营类");
+							getdata("running")});
+							
+							$("#inspire").bind("click",function(){
+								$("#leibie").empty();
+								$("#leibie").append("励志类");
+								getdata("inspire")});
+								
+								$("#social").bind("click",function(){
+									$("#leibie").empty();
+									$("#leibie").append("社科类");
+									getdata("social")});
+									
+									$("#child").bind("click",function(){
+										$("#leibie").empty();
+										$("#leibie").append("少儿类");
+										getdata("child")});
+		</script>
+	<script>
+		$("#add").bind("click",function(){
+			window.location.href="./insertbook.html"
+		})
+	</script>
   </body>
 </html>
