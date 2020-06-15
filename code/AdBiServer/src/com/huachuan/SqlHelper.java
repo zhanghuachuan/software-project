@@ -21,15 +21,14 @@ public static Boolean checkinfo(String username,String password){
          ResultSet result=state.executeQuery();
          result.next();
          String p = result.getString(2);
-         System.out.println("passwordÎª£º"+password);
-         System.out.println("pÎª£º"+p);
+         
          if(p.equals(password))
          {
         	 
              return true;
          }
      } catch (Exception e) {
-    	 System.out.print("ÕËºÅ´íÎó");
+    	 System.out.print("è´¦å·ä¸å­˜åœ¨");
      }
      return false;
 
@@ -52,7 +51,7 @@ public static boolean register(String username,String password){
             return true;
         }
     } catch (Exception e) {
-   	 System.out.print("ÓÃ»§ÒÑ´æÔÚ");
+   	 System.out.print("æ³¨å†Œè´¦æˆ·é‡å¤");
    	 
     }
     return false;
@@ -73,15 +72,56 @@ public static String querybook(String classification){
         	datamap.put("author", rs.getString(2));
         	datamap.put("price", rs.getString(3));
         	datamap.put("status", rs.getString(4));
+//        	datamap.put("count", rs.getString(5));
         	json.put( rs.getString(1), JSON.toJSONString(datamap));
         	
         }
+        System.out.print(json.toJSONString());
         return json.toJSONString();
     } catch (Exception e) {
         e.printStackTrace();
     }
     return null;
 }
+
+
+
+
+
+
+
+public static boolean insertbook(String bookname,String author,String price,String status,String classify){
+	
+	
+	 String sql = "insert into book (bookname,author,price,status,class) values(?,?,?,?,?)";
+
+   try {
+       PreparedStatement state =  conn.prepareStatement(sql);
+       state.setObject(1,bookname);
+       state.setObject(2,author);
+       state.setObject(3,price);
+       state.setObject(4,status);
+       state.setObject(5,classify);
+       int result=state.executeUpdate();
+      System.out.print(result);
+       if(result==1)
+       {
+           return true;
+       }
+   } catch (Exception e) {
+  	 System.out.print("å½•å…¥æˆåŠŸ");
+  	 
+   }
+   return false;
+
+}
+
+
+
+
+
+
+
 
 
 

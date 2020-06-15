@@ -1,5 +1,6 @@
 package com.huachuan;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
 
@@ -29,10 +30,10 @@ public class control {
 			rs = SqlHelper.checkinfo(username, password);
 			System.out.print(rs);
 			 if(rs) {
-				  return"{\"judgeresult\":\"µÇÂ½³É¹¦\"}";
+				  return"{\"judgeresult\":\"ç™»é™†æˆåŠŸ\"}";
 			  }
 			 else {
-				  return"{\"judgeresult\":\"µÇÂ½Ê§°Ü\"}";
+				  return"{\"judgeresult\":\"ç™»é™†å¤±è´¥\"}";
 			  }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -40,7 +41,7 @@ public class control {
 		}
 		 
 		 
-			  return"{\"judgeresult\":\"µÇÂ½Ê§°Ü\"}";
+			  return"{\"judgeresult\":\"ç™»é™†å¤±è´¥\"}";
 		  
 		   
 		   
@@ -50,17 +51,17 @@ public class control {
 	@RequestMapping(value="/loginregister",produces="application/json;charset=utf-8")
 	   public @ResponseBody String loginregister(@RequestParam("username") String username,@RequestParam("password") String password) {
 		  boolean rs=false;
-		  System.out.println(username+"×¢²áÖĞ¡£¡£¡£¡£");
+		 
 		  
 		try {
 			rs = SqlHelper.register(username, password);
 			 if(rs) {
 				 
-				  return"{\"judgeresult\":\"×¢²á³É¹¦\"}";
+				  return"{\"judgeresult\":\"æ³¨å†ŒæˆåŠŸ\"}";
 			  }
 			 else {
-				  System.out.println("×¢²áÊ§°Ü£¡£¡£¡");
-				  return"{\"judgeresult\":\"×¢²áÊ§°Ü\"}";
+				  
+				  return"{\"judgeresult\":\"æ³¨å†Œå¤±è´¥\"}";
 			  }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -68,7 +69,7 @@ public class control {
 		}
 		 
 		 
-			  return"{\"judgeresult\":\"×¢²áÊ§°Ü\"}";
+			  return"{\"judgeresult\":\"æ³¨å†Œå¤±è´¥\"}";
 		  
 		   
 		   
@@ -81,6 +82,34 @@ public class control {
 		 
 		 return SqlHelper.querybook(classification);
 		 
+		  
+		   
+		   
+	   }
+	
+	@RequestMapping(value="/addbook",produces="application/json;charset=utf-8")
+	   public @ResponseBody String addbook(@RequestParam(value= "bookname",required=false) String bookname,@RequestParam(value="author",required=false) String author,@RequestParam(value="price",required=false) String price,@RequestParam(value="classify",required=false) String classify,@RequestParam(value="status",required=false) String status) throws UnsupportedEncodingException {
+		Boolean flag=false;
+		String  name = new String(bookname.getBytes("ISO8859_1"), "UTF-8");
+		String  zuozhe = new String(author.getBytes("ISO8859_1"), "UTF-8");
+		String zhuangtai = new String(status.getBytes("ISO8859_1"), "UTF-8");
+		try {
+			flag = SqlHelper.insertbook(name, zuozhe, price, zhuangtai, classify);
+			 if(flag) {
+				 
+				 return"{\"judgeresult\":\"æ³¨å†ŒæˆåŠŸ\"}";
+			  }
+			 else {
+				  
+				  return"{\"judgeresult\":\"æ³¨å†Œå¤±è´¥\"}";
+			  }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 
+			  return"{\"judgeresult\":\"æ³¨å†Œå¤±è´¥\"}";
 		  
 		   
 		   
