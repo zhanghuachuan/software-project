@@ -29,17 +29,17 @@
 
     <span>图书信息登入</span><hr/>
     <label>书名: 
-		<input type="text" name="bookname"></label><br>
+		<input type="text" name="bookname" required ></label><br>
 	<label>作者:
-	    <input type="text" name="author"></label><br>
+	    <input type="text" name="author" required ></label><br>
 	<label>价格:
-		    <input type="text" name="price"></label><br>
+		    <input type="number" name="price" required ></label><br>
     <label> 状态:
-		<br><input type="radio" name="status" value="已售">已售<input type="radio" name="status" value="未售">未售</label><br>
+		<br><input type="radio" name="status" value="已售" >已售<input type="radio" name="status" value="未售">未售</label><br>
    
    
     <label>类别:<br>
-	<input type="radio" name="classify" value="literature">文学类
+	<input type="radio" name="classify" value="literature" >文学类
 	<input type="radio" name="classify" value="life">生活类
 	<input type="radio" name="classify" value="computer">计算机类
 	<input type="radio" name="classify" value="running">经营类
@@ -56,7 +56,11 @@ $("#btn").bind("click",function(){
 	var price = $("input[name='price']").val();
 	var status = $("input[name='status']:checked").val();
 	var classify = $("input[name='classify']:checked").val();
-	
+	if(bookname==undefined||bookname==""){alert("请填写书名！");return false;}
+	if(author==undefined||author==""){alert("请填写作者！");return false;}
+	if(price==undefined||price==""){alert("请填写价格！");return false;}
+	if(status==undefined||status==""){alert("请选择状态！");return false;}
+	if(classify==undefined||classify==""){alert("请选择类别！");return false;}
 	
 	mui.ajax({
 		url:"http://192.168.174.1/AiBdServer/addbook.action",
