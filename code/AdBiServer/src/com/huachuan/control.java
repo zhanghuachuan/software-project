@@ -115,4 +115,34 @@ public class control {
 		   
 	   }
 	
+	
+	@RequestMapping(value="/delbook",produces="application/json;charset=utf-8")
+	   public @ResponseBody String delbook(@RequestParam(value= "bookname",required=false) String bookname) throws UnsupportedEncodingException {
+		Boolean flag=false;
+		String  name = new String(bookname.getBytes("ISO8859_1"), "UTF-8");
+		
+		try {
+			flag = SqlHelper.delbook(name);
+			 if(flag) {
+				 
+				 return"{\"judgeresult\":\"删除成功\"}";
+			  }
+			 else {
+				  
+				  return"{\"judgeresult\":\"删除失败\"}";
+			  }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 
+			  return"{\"judgeresult\":\"删除失败\"}";
+		  
+		   
+		   
+	   }
+	
+	
+	
 }

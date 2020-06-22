@@ -87,6 +87,7 @@
     	<!-- 第七部分 共xxx种商品 -->
     	<h2>共<span id="count"></span>种商品</h2>
 		<button type="button" id="add">增加书籍</button>
+		<button type="button" id="del">删除书籍</button>
     	<hr>
     	
     	<!-- 第八部分 图片 -->
@@ -209,7 +210,10 @@
 		</script>
 	<script>
 		$("#add").bind("click",function(){
-			window.location.href="./insertbook.html"
+			window.location.href="./insertbook.html";
+		});
+		$("#del").bind("click",function(){
+			window.location.href="./delbook.html";
 		})
 	</script>
   </body>

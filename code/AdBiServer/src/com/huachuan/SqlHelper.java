@@ -60,7 +60,9 @@ public static boolean register(String username,String password){
 
 public static String querybook(String classification){
 	System.out.print(classification);
+	
     String sql="select bookname,author,price,status from book where class="+"\""+classification+"\"";
+    if("".equals(classification)){sql="select bookname,author,price,status from book";}
     HashMap<String,Object> datamap = new HashMap<String,Object>();
     ResultSet rs=null;
     JSONObject json = new JSONObject();
@@ -116,6 +118,26 @@ public static boolean insertbook(String bookname,String author,String price,Stri
 
 }
 
+
+public static boolean delbook(String bookname){
+	 String sql = "delete from book where bookname=?";
+
+	   try {
+	       PreparedStatement state =  conn.prepareStatement(sql);
+	       state.setObject(1,bookname);
+	      
+	       int result=state.executeUpdate();
+	      System.out.print(result);
+	       if(result==1)
+	       {
+	           return true;
+	       }
+	   } catch (Exception e) {
+	  	 System.out.print("删除失败");
+	  	 
+	   }
+	   return false;
+}
 
 
 
